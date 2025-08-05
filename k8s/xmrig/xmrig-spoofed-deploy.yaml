@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xmrig-spoofed
+  namespace: xmrig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xmrig-spoofed
+  template:
+    metadata:
+      labels:
+        app: xmrig-spoofed
+    spec:
+      containers:
+      - name: miner
+        image: my-spoofed-xmrig:v1
+        imagePullPolicy: IfNotPresent
+        args: ["--config=/xmrig/etc/config.json"]
+        resources:
+          limits:
+            memory: "4Gi"
+          requests:
+            memory: "3Gi"
+        volumeMounts:
+        - name: cfg
+          mountPath: /xmrig/etc
+      volumes:
+      - name: cfg
+        configMap:
+          name: xmrig-config

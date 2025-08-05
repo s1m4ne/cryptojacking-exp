@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${WL}
+  namespace: work
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${WL}
+  template:
+    metadata:
+      labels:
+        app: ${WL}
+    spec:
+      containers:
+      - name: main
+        image: ${IMAGE}
+        imagePullPolicy: IfNotPresent
+        args: []
+        resources:
+          limits:
+            memory: "4Gi"
+          requests:
+            memory: "3Gi"

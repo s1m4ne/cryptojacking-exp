@@ -1,0 +1,6 @@
+dataset/raw/
+dataset/processed/
+logs/
+wallet/
+__pycache__/
+*.pyc

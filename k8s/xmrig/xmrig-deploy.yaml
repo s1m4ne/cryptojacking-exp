@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xmrig
+  namespace: xmrig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xmrig
+  template:
+    metadata:
+      labels:
+        app: xmrig
+    spec:
+      containers:
+      - name: miner
+        image: miningcontainers/xmrig:latest
+        args: ["--config=/xmrig/etc/config.json"]
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        volumeMounts:
+        - name: cfg
+          mountPath: /xmrig/etc
+      volumes:
+      - name: cfg
+        configMap:
+          name: xmrig-config
