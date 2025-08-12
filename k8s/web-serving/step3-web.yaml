@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: web-serving
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: web }
+  template:
+    metadata:
+      labels: { app: web }
+    spec:
+      initContainers:
+        - name: wait-backends
+          image: busybox:1.36
+          command: ["sh","-lc"]
+          args:
+            - |
+              echo "waiting for db:3306 and memcached:11211 ..."
+              until nc -z -w 2 db 3306; do sleep 2; done
+              until nc -z -w 2 memcached 11211; do sleep 2; done
+              echo "backends are up"
+      containers:
+        - name: web
+          image: cloudsuite/web-serving:web_server
+          env:
+            - name: WEB_IP
+              value: web
+          command: ["/bin/sh","-lc"]
+          args:
+            - |
+              set -eu
+              DB_IP=$(getent hosts db | awk '{print $1}')
+              MC_IP=$(getent hosts memcached | awk '{print $1}')
+              echo "WEB_IP=${WEB_IP} DB_IP=${DB_IP} MC_IP=${MC_IP}"
+              /etc/bootstrap.sh http "${WEB_IP}" "${DB_IP}" "${MC_IP}" 50 auto
+              exec sleep infinity
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 12
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: web-serving
+spec:
+  selector: { app: web }
+  ports:
+    - port: 8080
+      targetPort: 8080

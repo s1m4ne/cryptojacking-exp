@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faban-client
+  namespace: web-serving
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: faban-client
+  template:
+    metadata:
+      labels:
+        app: faban-client
+    spec:
+      initContainers:
+        - name: wait-web
+          image: curlimages/curl:8.8.0
+          command: ["sh","-lc"]
+          args:
+            - |
+              for i in $(seq 1 120); do
+                curl -fsS -I http://web:8080/ >/dev/null && exit 0
+                sleep 2
+              done
+              exit 1
+      containers:
+        - name: client
+          image: cloudsuite/web-serving:faban_client
+          command: ["/bin/sh","-lc"]
+          args:
+            - |
+              echo "[faban-client] ready"
+              sleep infinity
+          volumeMounts:
+            - name: faban-out
+              mountPath: /usr/src/faban/output
+      volumes:
+        - name: faban-out
+          hostPath:
+            path: /var/tmp/faban-out
+            type: DirectoryOrCreate
