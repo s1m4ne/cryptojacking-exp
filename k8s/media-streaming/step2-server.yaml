@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: media-streaming
+  labels:
+    app: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: cloudsuite/media-streaming:server
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - name: videos
+          mountPath: /videos
+          readOnly: true
+        readinessProbe:
+          tcpSocket:
+            port: 80
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 3
+          successThreshold: 1
+      volumes:
+      - name: videos
+        persistentVolumeClaim:
+          claimName: media-streaming-videos
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+  namespace: media-streaming
+  labels:
+    app: server
+spec:
+  selector:
+    app: server
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 443
+    targetPort: 443
+  type: ClusterIP

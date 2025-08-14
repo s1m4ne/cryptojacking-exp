@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dataset
+  namespace: media-streaming
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: dataset
+        image: cloudsuite/media-streaming:dataset
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: FORCE
+          value: "true"
+        args: ["3", "5"]
+        volumeMounts:
+        - name: videos
+          mountPath: /videos
+      volumes:
+      - name: videos
+        persistentVolumeClaim:
+          claimName: media-streaming-videos
