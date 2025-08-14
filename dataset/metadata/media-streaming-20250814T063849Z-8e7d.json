@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "base": "media-streaming-20250814T063849Z-8e7d",
+  "namespace": "media-streaming",
+  "workload": "media-streaming",
+  "event": "raw_syscalls:sys_exit",
+  "bench": {
+    "server": "server",
+    "processes": 4,
+    "video_count": 1000,
+    "rate_vps": 10,
+    "mode": "PT"
+  },
+  "monitor_since": "2025-08-14T06:38:50Z",
+  "start_ts": "2025-08-14T06:38:51.095452761Z",
+  "end_ts": "2025-08-14T06:46:40.165703537Z",
+  "files": { "raw": "dataset/raw/media-streaming-20250814T063849Z-8e7d.jsonl", "log": "logs/media-streaming-20250814T063849Z-8e7d.log", "client": "logs/media-streaming-20250814T063849Z-8e7d-client.log" },
+  "fields": ["ts","pid","pod","container","sc","wl"]
+}

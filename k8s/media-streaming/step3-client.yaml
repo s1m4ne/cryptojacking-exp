@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: media-streaming
+  labels:
+    app: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: cloudsuite/media-streaming:client
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash","-lc","echo '[client] ready'; sleep infinity"]
+        volumeMounts:
+        - name: videos
+          mountPath: /videos
+          readOnly: true
+        - name: output
+          mountPath: /output
+      volumes:
+      - name: videos
+        persistentVolumeClaim:
+          claimName: media-streaming-videos
+      - name: output
+        emptyDir: {}
