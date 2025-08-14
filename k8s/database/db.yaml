@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: database
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: database
+  labels:
+    app: mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:10.6
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          value: rootpass
+        - name: MARIADB_DATABASE
+          value: bench
+        - name: MARIADB_USER
+          value: sbtest
+        - name: MARIADB_PASSWORD
+          value: sbpass
+        ports:
+        - containerPort: 3306
+        readinessProbe:
+          exec:
+            command: ["sh","-lc","mysqladmin ping -h 127.0.0.1 -uroot -p$MARIADB_ROOT_PASSWORD"]
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 6
+          successThreshold: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  namespace: database
+  labels:
+    app: mariadb
+spec:
+  selector:
+    app: mariadb
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sysbench
+  namespace: database
+  labels:
+    app: sysbench
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sysbench
+  template:
+    metadata:
+      labels:
+        app: sysbench
+    spec:
+      containers:
+      - name: sysbench
+        image: debian:bookworm-slim
+        imagePullPolicy: IfNotPresent
+        command: ["sh","-lc"]
+        args:
+          - |
+            set -e
+            apt-get update
+            apt-get install -y --no-install-recommends \
+              sysbench default-mysql-client ca-certificates
+            rm -rf /var/lib/apt/lists/*
+            echo "[sysbench] ready"
+            sleep infinity
