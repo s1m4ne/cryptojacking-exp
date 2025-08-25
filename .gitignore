@@ -1,9 +1,18 @@
-dataset/raw/
-dataset/tmp/
-dataset/processed/
+k# 仮想環境
+venv/
+.venv/
+env/
+
+# Pythonキャッシュ
+__pycache__/
+
+# データ・キャッシュ・ログ
+dataset/
+cache/
 logs/
 wallet/
-__pycache__/
-*.pyc
+minikube-logs.txt
+
+# 設定バックアップ
 config/
-venv/
+config.backup*/
