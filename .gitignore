@@ -6,3 +6,4 @@ wallet/
 __pycache__/
 *.pyc
 config/
+venv/

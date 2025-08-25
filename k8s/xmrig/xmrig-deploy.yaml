@@ -14,16 +14,14 @@ spec:
         app: xmrig
     spec:
       containers:
-      - name: miner
-        image: miningcontainers/xmrig:latest
-        args: ["--config=/xmrig/etc/config.json"]
-        resources:
-          limits:
-            cpu: "2"
-            memory: "4Gi"
+      - name: xmrig
+        image: xmrig-base:latest
+        imagePullPolicy: IfNotPresent
+        args: ["-c", "/etc/xmrig/config.json"]
         volumeMounts:
         - name: cfg
-          mountPath: /xmrig/etc
+          mountPath: /etc/xmrig
+          readOnly: true
       volumes:
       - name: cfg
         configMap:
