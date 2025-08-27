@@ -1,89 +1,144 @@
-# Cryptojacking Experiment Benchmarks
+# **Cryptojacking Experiment Benchmarks**
 
-このリポジトリは、Kubernetes 上で複数のワークロード（正常系・異常系）を動作させ、
-Tetragon によるシステムコール監視を行い、データセットを生成するための構成とスクリプトをまとめたものです。
+  
 
-### 実験目的
-- 各種ベンチマークワークロードを再現（CloudSuite ベースのものを含む）
-- 正常系ワークロード（例: media-streaming, web-serving, data-caching, database）
-- 異常系ワークロード（例: xmrig マイニング、spoofed バージョン）
-- システムコールトレースを JSONL として収集
-- 生成データを機械学習・検知モデルに利用可能な形式で保存
+Kubernetes 上で複数のワークロード（正常系・異常系）を動作させ、Tetragon によるシステムコール監視でデータセットを生成・解析するための構成とスクリプトをまとめたリポジトリです。生成データは機械学習（n-gram 特徴量、RNN など）に利用できます。
 
-### ディレクトリ構成
+---
+
+## **実験目的**
+
+- CloudSuite ベースを含む複数ワークロードの再現（media-streaming / web-serving / data-caching / database / xmrig）
+    
+- 正常系・異常系（cryptojacking）のシステムコールトレース収集（JSONL）
+    
+- 収集データの前処理・特徴量化と学習用フォーマット化
+    
+
+---
+
+## **リポジトリ構成（現状）**
+
 ```
 cryptojacking-exp/
-├── dataset/                # 実行後に生成されるデータセット
-│   ├── raw/                 # ベンチ区間のみの JSONL
-│   ├── tmp/                 # 全監視期間の一時ファイル
-│   └── metadata/            # 実験メタ情報(JSON)
-├── logs/                   # 実行時ログ（クライアント/サーバ別）
-├── k8s/
-│   ├── media-streaming/     # CloudSuite Media Streaming ベンチ用マニフェスト
-│   ├── web-serving/         # Web Serving ベンチ用マニフェスト
-│   ├── data-caching/        # Data Caching ベンチ用マニフェスト
-│   ├── database/            # MariaDB + Sysbench ベンチ用マニフェスト
-│   └── xmrig/               # XMRig マイニング（spoofed含む）
-├── analyzer/               # データ解析用スクリプト
-└── wwwroot/                # Web 静的ファイル（必要に応じて）
+├── analyzer/                # 解析スクリプト
+│   └── 5gram_analyzer.py
+├── cache/                   # 特徴量キャッシュ（npy 等）※Git管理外推奨
+│   └── n40_overlap/...
+├── config/                  # 実行設定（秘密情報は置かない／追跡しない）
+├── dataroot/                # 実験用のルート（必要に応じてマウント先等）
+├── dataset/                 # 生成データ（raw/tmp/metadata/syscalls）※Git管理外
+│   ├── raw/                 # 各ワークロードのJSONL
+│   ├── tmp/                 # 全期間の一時ファイル
+│   ├── metadata/            # 実験メタ情報
+│   └── syscalls/            # 整形済みシステムコール系列
+├── features/                # 特徴量生成・分割・学習
+│   ├── make_ngrams_npy.py
+│   ├── split_dataset.py
+│   └── train_rnn.py
+├── k8s/                     # 各ワークロードのK8sマニフェストと実行スクリプト
+│   ├── data-caching/        # policy / step1-2 / run_*.sh
+│   ├── database/            # policy / db.yaml / run_*.sh
+│   ├── media-streaming/     # pv/pvc/step1-3 / run_*.sh
+│   ├── web-serving/         # step1-4 / run_*.sh / policy
+│   └── xmrig/               # 通常版・偽装版のデプロイ/ポリシー/実行
+├── logs/                    # 実行ログ（Git管理外）
+├── values-tetragon.yaml     # Tetragon の Helm values 等
+└── wwwroot/                 # 静的ファイル（必要に応じて）
 ```
 
-### ワークロード概要
+> メモ: .gitignore により dataset/, cache/, logs/, config/, config.backup*/, wallet/, venv/.venv/env/, __pycache__/ は **Git管理外**（ローカルのみ保持）です。
 
-1. Media Streaming
-- 元イメージ: cloudsuite/media-streaming:dataset + cloudsuite/media-streaming:server + client
-- 目的: 動画配信サーバの負荷生成とアクセスパターン収集
-- run_media_streaming_capture.sh によりトレーシング & ベンチ実行
+---
 
-3. Web Serving
-- 構成: DB + Memcached + Web + Faban Client
-- 目的: Web サービスのスループット測定
+## **主要ワークロード**
 
-5. Data Caching
-- 構成: Memcached Server + Client
-- 目的: キャッシュシステムの負荷試験
+- **Media Streaming**
+    
+    CloudSuite の dataset/server/client で配信負荷を再現。k8s/media-streaming/run_media_streaming_capture.sh がトレースと実行を統合。
+    
+- **Web Serving**
+    
+    DB + Memcached + Web + Faban Client の構成でスループットを測定。
+    
+- **Data Caching**
+    
+    Memcached サーバとクライアントでキャッシュ性能を測定。
+    
+- **Database**
+    
+    MariaDB + Sysbench で読み書き性能を測定。
+    
+- **XMRig (Cryptojacking)**
+    
+    通常版／偽装版を含むマイニングワークロードで、攻撃系のシステムコールパターンを収集。
+    
+    ※ ウォレット等の機密は config/ に置かず、環境変数や外部 Secret を利用してください。
+    
 
-6. Database
-- 構成: MariaDB Server + Sysbench Client
-- 目的: データベースの読み書き性能測定
+---
 
-8. XMRig (Cryptojacking)
-- 構成: XMRig マイニングコンテナ（通常版・偽装版）
-- 目的: 悪意あるワークロードのシステムコールパターン収集
-- 注意: ウォレット情報は config/ ディレクトリに置き、.gitignore 済み（Git追跡禁止）
+## **実行例（Media Streaming）**
 
-
-### 実行の流れ（例: media-streaming）
-1.	Namespace 作成 & データセット展開
 ```
+# 1) データセット展開（PV/PVC）
 kubectl apply -f k8s/media-streaming/pv.yaml
 kubectl apply -f k8s/media-streaming/pvc.yaml
 kubectl apply -f k8s/media-streaming/step1-dataset.yaml
-```
 
-2.	サーバ起動
-```
+# 2) サーバ起動
 kubectl apply -f k8s/media-streaming/step2-server.yaml
-```
 
-3.	クライアント起動
-```
+# 3) クライアント起動
 kubectl apply -f k8s/media-streaming/step3-client.yaml
-```
 
-4.	トレーシング & ベンチ実行
-```
+# 4) トレース＆ベンチ実行（Tetragon 前提）
 bash k8s/media-streaming/run_media_streaming_capture.sh
 ```
 
-### セキュリティ上の注意
-- config/ 以下のウォレットや秘密情報は Git 管理外
-- 過去の履歴からも削除済み（git-filter-repo 利用）
-- 公開環境でマイニングを行う場合、利用規約違反・法的リスクがあるため必ず自己管理環境で実行
+他ワークロードも各ディレクトリの run_*_capture.sh を参照してください。
 
+---
 
-### 参考
-- CloudSuite Official
-- MariaDB
-- Sysbench
-- Tetragon
+## **生成データと学習**
+
+```
+# n-gram 特徴量生成（例）
+python features/make_ngrams_npy.py
+
+# データセット分割
+python features/split_dataset.py
+
+# RNN の学習
+python features/train_rnn.py
+```
+
+- 生成された .npy や学習済みモデルは cache/ 等に保存され、Git には含めません。
+    
+- analyzer/5gram_analyzer.py で簡易解析が可能です。
+    
+
+---
+
+## **セキュリティと公開ポリシー**
+
+- 機密情報（ウォレット・認証情報・個人データ）は **コミット禁止**。必要なら Kubernetes Secret / 環境変数を使用。
+    
+- 大容量の生成物やログは **ローカル専用**（.gitignore 済み）。
+    
+- 公開環境でのマイニングは規約・法令違反の可能性があり、自己管理下の環境でのみ実行してください。
+    
+
+---
+
+## **補足（.gitignore による管理外パス）**
+
+```
+# 仮想環境 / キャッシュ
+venv/ .venv/ env/ __pycache__/
+
+# 生成物・ログ・機密
+dataset/ cache/ logs/ wallet/ config/ config.backup*/
+```
+
+必要に応じて !<path> で個別に公開したいファイル（例: dataset/README.md）だけ除外解除できます。
