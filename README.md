@@ -30,7 +30,7 @@ cryptojacking-exp/
 * ウォレットや API キーなどの機密はレポジトリに置かず、**Kubernetes Secret** や環境変数で管理してください。
 * 公開環境でのマイニングは規約・法令に抵触する可能性があります。**自己管理下の環境**でのみ実施してください。
 
----
+
 
 # JSONL → データセット作成システム
 
@@ -172,7 +172,7 @@ A. 設定ファイルの `workloads` の行数がそのままクラス数です�
 **Q. 不足（valid < target\_frames）の扱いは？**
 A. 現仕様は不足のまま採用し、WARNING と `meta.json` に記録します（将来の upsample は拡張点）。
 
----
+
 
 # 参考：ワークロードの収集（最小フロー）
 
@@ -197,8 +197,36 @@ bash k8s/media-streaming/run_media_streaming_capture.sh
 
 同様に他ワークロードは `k8s/<workload>/run_*_capture.sh` を参照してください。
 
----
+## モデル構築フェーズ（学習済みモデルのまとめ）
 
-# ライセンス / 貢献
+本セクションでは、**学習に使用した n-gram データセット／主要ハイパーパラメータ／保存先**を一覧化します。評価フェーズでは、下記ファイルを読み込んで一括評価してください。
 
-PR・Issue 歓迎です。運用やスキーマの拡張（例: upsample、indices.npy の出力、JSON ログ）も提案いただければ対応します。
+### サマリ
+
+| モデル               | 学習データ（merged）                    | 保存先                        | 主要ハイパーパラメータ（論文準拠）                                                                                                                                                                                   | Val Acc | Test Acc |
+| ----------------- | -------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------: | -------: |
+| **RNN (LSTM)**    | `dataset/npy/merged/five-40gram` | `models/lstm.model.keras`  | LSTM×2（units=35→80）／**Dropout=0.2**×2／**activation=ReLU**／**optimizer=Adam**／**loss=sparse\_categorical\_crossentropy**／Embedding **input\_dim=427**（syscall max=426+1）, **output\_dim=64**／seed=42 |  1.0000 |   1.0000 |
+| **Decision Tree** | `dataset/npy/merged/five-35gram` | `models/dt_35.joblib`      | `criterion=gini`／`splitter=best`／`random_state=42`                                                                                                                                                  |  0.9996 |   0.9996 |
+| **SVM (RBF)**     | `dataset/npy/merged/five-50gram` | `models/svm_50_all.joblib` | `kernel=rbf`／`C=1.0`／`gamma=scale`／`random_state=42`                                                                                                                                                |  0.9889 |   0.9820 |
+| **MLP (sklearn)** | `dataset/npy/merged/five-10gram` | `models/mlp_10.joblib`     | `hidden_layer_sizes=(100,)`／`activation=relu`／`solver=adam`／`learning_rate_init=0.001`／`random_state=42`                                                                                            |  0.9815 |   0.9798 |
+| **KNN**           | `dataset/npy/merged/five-5gram`  | `models/knn_5.joblib`      | `n_neighbors=5`／`weights=uniform`／`metric=euclidean (minkowski, p=2)`                                                                                                                               |  0.9966 |   0.9971 |
+
+> **注**
+>
+> * ラベルは **0..4**（`meta.json` の `label_map` を参照）。
+> * RNN の入力配列は **`int32`**、他モデルはそのまま `X: [N, n]` の整数（内部で浮動小数にキャストされます）。
+> * 乱数シードは学習スクリプト内で **`42`** を固定しています。
+
+### ロード例（評価フェーズでの再利用）
+
+```python
+# scikit-learn 系（DT / SVM / MLP / KNN）
+import joblib
+clf = joblib.load("models/dt_35.joblib")  # 例：Decision Tree
+y_pred = clf.predict(X_test)
+
+# Keras（RNN）
+import tensorflow as tf
+model = tf.keras.models.load_model("models/lstm.model.keras")
+y_prob = model.predict(X_test_int32)  # X は int32 の [N, n]
+```
