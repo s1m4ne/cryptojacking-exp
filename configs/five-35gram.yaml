@@ -1,0 +1,33 @@
+framing:
+  n: 35   # フレームサイズ（ストライドは常に1／内部で56/14/30に三分割）
+
+workloads:
+  - workload: web-serving
+    name: Web Serving
+    label_id: 0
+    paths: ["dataset/raw/web-serving-*.jsonl"]
+    target_frames: 35210     # 表の Web-Serving
+
+  - workload: data-caching
+    name: Data Caching
+    label_id: 1
+    paths: ["dataset/raw/data-caching-*.jsonl"]
+    target_frames: 50596     # 表の Data-Caching
+
+  - workload: media-streaming
+    name: Media Streaming
+    label_id: 2
+    paths: ["dataset/raw/media-streaming-*.jsonl"]
+    target_frames: 112003    # 表の Media-Streaming
+
+  - workload: mariadb
+    name: MariaDB
+    label_id: 3
+    paths: ["dataset/raw/database-*.jsonl"]   # rawは database-*.jsonl
+    target_frames: 43925     # 表の MariaDB
+
+  - workload: xmrig
+    name: XMRig
+    label_id: 4
+    paths: ["dataset/raw/xmrig-*.jsonl"]
+    target_frames: 241043    # XMRig(115,611) + xmr-stak-cpu(125,432) = 241,043
