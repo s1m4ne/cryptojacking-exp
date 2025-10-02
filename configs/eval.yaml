@@ -1,0 +1,25 @@
+models:
+  - name: rnn_40
+    kind: keras
+    model_path: models/lstm.model.keras
+    data_path: dataset/npy/merged/five-40gram
+
+  - name: dt_35
+    kind: sklearn
+    model_path: models/dt_35.joblib
+    data_path: dataset/npy/merged/five-35gram
+
+  - name: svm_50
+    kind: sklearn
+    model_path: models/svm_50_all.joblib
+    data_path: dataset/npy/merged/five-50gram
+
+  - name: mlp_10
+    kind: sklearn
+    model_path: models/mlp_10.joblib
+    data_path: dataset/npy/merged/five-10gram
+
+  - name: knn_5
+    kind: sklearn
+    model_path: models/knn_5.joblib
+    data_path: dataset/npy/merged/five-5gram
