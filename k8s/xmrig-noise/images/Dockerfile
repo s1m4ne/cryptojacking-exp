@@ -39,6 +39,9 @@ WORKDIR /work
 COPY --from=builder /src/build/xmrig /usr/local/bin/xmrig
 COPY --from=builder /src/libnoise.so /opt/libnoise.so
 
-# すぐに採掘しない（明示実行）
-ENTRYPOINT ["/usr/local/bin/xmrig"]
-CMD ["--help"]
+# entrypoint.sh を配置
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# エントリーポイントを xmrig から entrypoint.sh に変更
+ENTRYPOINT ["/entrypoint.sh"]
