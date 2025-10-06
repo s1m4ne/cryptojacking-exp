@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: xmrig-noise
+  namespace: xmrig-noise
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: xmrig-noise
+        image: xmrig-noise:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LD_PRELOAD
+          value: "/opt/libnoise.so"
+        - name: NOISE_ENABLE
+          value: "1"
+        - name: NOISE_RATE_HZ
+          value: "1000"
+        - name: BENCH_ARGS
+          value: "--bench=1M"
+        resources:
+          requests:
+            cpu: "2"
+            memory: "4Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
