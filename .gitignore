@@ -12,6 +12,7 @@ cache/
 logs/
 wallet/
 minikube-logs.txt
+runs/
 
 # 設定バックアップ
 config/

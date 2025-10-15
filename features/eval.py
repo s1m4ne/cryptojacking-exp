@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # features/eval_models_simple.py
 # シンプル一括評価: merged/test の X.npy,y.npy を各モデルで評価して、ログ出力＋JSON保存
 from pathlib import Path
@@ -8,13 +9,27 @@ from zoneinfo import ZoneInfo
 
 JST = ZoneInfo("Asia/Tokyo")
 
-# モデル⇔データ対応（固定）
+# モデル⇔データ�
 MODELS = [
-    {"name":"rnn_40", "kind":"keras",   "model_path":"models/lstm.model.keras",      "data_path":"dataset/npy/merged/five-40gram"},
-    {"name":"dt_35",  "kind":"sklearn", "model_path":"models/dt_35.joblib",          "data_path":"dataset/npy/merged/five-35gram"},
-    {"name":"svm_50", "kind":"sklearn", "model_path":"models/svm_50_all.joblib",     "data_path":"dataset/npy/merged/five-50gram"},
-    {"name":"mlp_10", "kind":"sklearn", "model_path":"models/mlp_10.joblib",         "data_path":"dataset/npy/merged/five-10gram"},
-    {"name":"knn_5",  "kind":"sklearn", "model_path":"models/knn_5.joblib",          "data_path":"dataset/npy/merged/five-5gram"},
+    {"name": "rnn_40", "kind": "keras",
+     "model_path": "models/lstm.model.keras",
+     "data_path": "dataset/npy/merged/15m-1000hz-40gram"},
+
+    {"name": "dt_35", "kind": "sklearn",
+     "model_path": "models/dt_35.joblib",
+     "data_path": "dataset/npy/merged/15m-1000hz-35gram"},
+
+    {"name": "svm_50", "kind": "sklearn",
+     "model_path": "models/svm_50_all.joblib",
+     "data_path": "dataset/npy/merged/15m-1000hz-50gram"},
+
+    {"name": "mlp_10", "kind": "sklearn",
+     "model_path": "models/mlp_10.joblib",
+     "data_path": "dataset/npy/merged/15m-1000hz-10gram"},
+
+    {"name": "knn_5", "kind": "sklearn",
+     "model_path": "models/knn_5.joblib",
+     "data_path": "dataset/npy/merged/15m-1000hz-5gram"},
 ]
 
 def now_jst_str():
