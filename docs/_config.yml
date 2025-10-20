@@ -1,5 +1,7 @@
 title: Cryptojacking Noise Experiments
 theme: jekyll-theme-cayman
 markdown: kramdown
-# プロジェクトサイトの場合は baseurl を “/リポジトリ名” に
-baseurl: /<YOUR-REPO-NAME>
+
+# GitHub Pages
+url: "https://s1m4ne.github.io"
+baseurl: "/cryptojacking-exp"
