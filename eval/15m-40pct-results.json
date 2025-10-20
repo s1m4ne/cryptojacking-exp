@@ -1,0 +1,148 @@
+{
+  "started_at": "2025-10-17 00:55:21 JST",
+  "finished_at": "2025-10-17 00:58:03 JST",
+  "label": "15m-40pct",
+  "data_root": "dataset/npy/merged",
+  "results": [
+    {
+      "name": "rnn_40",
+      "kind": "keras",
+      "model_path": "models/lstm.model.keras",
+      "data_path": "dataset/npy/merged/15m-40pct-40gram",
+      "label": "15m-40pct",
+      "n": 40,
+      "test_N": 144634,
+      "started_at": "2025-10-17 00:55:21 JST",
+      "finished_at": "2025-10-17 00:55:35 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9989899409184619,
+        "f1": 0.9994947152755186,
+        "fpr": 0.0,
+        "support_pos": 72273,
+        "support_neg": 72361
+      },
+      "confusion_matrix": {
+        "tp": 72200,
+        "fp": 0,
+        "fn": 73,
+        "tn": 72361
+      }
+    },
+    {
+      "name": "dt_35",
+      "kind": "sklearn",
+      "model_path": "models/dt_35.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-35gram",
+      "label": "15m-40pct",
+      "n": 35,
+      "test_N": 144659,
+      "started_at": "2025-10-17 00:55:35 JST",
+      "finished_at": "2025-10-17 00:55:35 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9998988442960828,
+        "recall": 0.5470405932648938,
+        "f1": 0.7071838026846478,
+        "fpr": 5.5263121537420044e-05,
+        "support_pos": 72278,
+        "support_neg": 72381
+      },
+      "confusion_matrix": {
+        "tp": 39539,
+        "fp": 4,
+        "fn": 32739,
+        "tn": 72377
+      }
+    },
+    {
+      "name": "svm_50",
+      "kind": "sklearn",
+      "model_path": "models/svm_50_all.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-50gram",
+      "label": "15m-40pct",
+      "n": 50,
+      "test_N": 144584,
+      "started_at": "2025-10-17 00:55:35 JST",
+      "finished_at": "2025-10-17 00:57:21 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9997785865519007,
+        "f1": 0.9998892810186146,
+        "fpr": 0.0,
+        "support_pos": 72263,
+        "support_neg": 72321
+      },
+      "confusion_matrix": {
+        "tp": 72247,
+        "fp": 0,
+        "fn": 16,
+        "tn": 72321
+      }
+    },
+    {
+      "name": "mlp_10",
+      "kind": "sklearn",
+      "model_path": "models/mlp_10.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-10gram",
+      "label": "15m-40pct",
+      "n": 10,
+      "test_N": 144784,
+      "started_at": "2025-10-17 00:57:21 JST",
+      "finished_at": "2025-10-17 00:57:21 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9907790992917279,
+        "recall": 0.6152441807393884,
+        "f1": 0.7591061509714081,
+        "fpr": 0.005711841724038024,
+        "support_pos": 72303,
+        "support_neg": 72481
+      },
+      "confusion_matrix": {
+        "tp": 44484,
+        "fp": 414,
+        "fn": 27819,
+        "tn": 72067
+      }
+    },
+    {
+      "name": "knn_5",
+      "kind": "sklearn",
+      "model_path": "models/knn_5.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-5gram",
+      "label": "15m-40pct",
+      "n": 5,
+      "test_N": 144809,
+      "started_at": "2025-10-17 00:57:21 JST",
+      "finished_at": "2025-10-17 00:58:03 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9597554904021685,
+        "f1": 0.9794645251436072,
+        "fpr": 0.0,
+        "support_pos": 72308,
+        "support_neg": 72501
+      },
+      "confusion_matrix": {
+        "tp": 69398,
+        "fp": 0,
+        "fn": 2910,
+        "tn": 72501
+      }
+    }
+  ]
+}

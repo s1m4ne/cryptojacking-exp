@@ -1,0 +1,148 @@
+{
+  "started_at": "2025-10-17 00:58:04 JST",
+  "finished_at": "2025-10-17 01:00:39 JST",
+  "label": "15m-50pct",
+  "data_root": "dataset/npy/merged",
+  "results": [
+    {
+      "name": "rnn_40",
+      "kind": "keras",
+      "model_path": "models/lstm.model.keras",
+      "data_path": "dataset/npy/merged/15m-50pct-40gram",
+      "label": "15m-50pct",
+      "n": 40,
+      "test_N": 144634,
+      "started_at": "2025-10-17 00:58:04 JST",
+      "finished_at": "2025-10-17 00:58:18 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9983119560555117,
+        "f1": 0.9991552650528998,
+        "fpr": 0.0,
+        "support_pos": 72273,
+        "support_neg": 72361
+      },
+      "confusion_matrix": {
+        "tp": 72151,
+        "fp": 0,
+        "fn": 122,
+        "tn": 72361
+      }
+    },
+    {
+      "name": "dt_35",
+      "kind": "sklearn",
+      "model_path": "models/dt_35.joblib",
+      "data_path": "dataset/npy/merged/15m-50pct-35gram",
+      "label": "15m-50pct",
+      "n": 35,
+      "test_N": 144659,
+      "started_at": "2025-10-17 00:58:18 JST",
+      "finished_at": "2025-10-17 00:58:18 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9998808353442369,
+        "recall": 0.46435983286753924,
+        "f1": 0.6341915064481081,
+        "fpr": 5.5263121537420044e-05,
+        "support_pos": 72278,
+        "support_neg": 72381
+      },
+      "confusion_matrix": {
+        "tp": 33563,
+        "fp": 4,
+        "fn": 38715,
+        "tn": 72377
+      }
+    },
+    {
+      "name": "svm_50",
+      "kind": "sklearn",
+      "model_path": "models/svm_50_all.joblib",
+      "data_path": "dataset/npy/merged/15m-50pct-50gram",
+      "label": "15m-50pct",
+      "n": 50,
+      "test_N": 144584,
+      "started_at": "2025-10-17 00:58:18 JST",
+      "finished_at": "2025-10-17 01:00:02 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "fpr": 0.0,
+        "support_pos": 72263,
+        "support_neg": 72321
+      },
+      "confusion_matrix": {
+        "tp": 72263,
+        "fp": 0,
+        "fn": 0,
+        "tn": 72321
+      }
+    },
+    {
+      "name": "mlp_10",
+      "kind": "sklearn",
+      "model_path": "models/mlp_10.joblib",
+      "data_path": "dataset/npy/merged/15m-50pct-10gram",
+      "label": "15m-50pct",
+      "n": 10,
+      "test_N": 144784,
+      "started_at": "2025-10-17 01:00:02 JST",
+      "finished_at": "2025-10-17 01:00:02 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9883815564224174,
+        "recall": 0.4871028864639088,
+        "f1": 0.6525904239549363,
+        "fpr": 0.005711841724038024,
+        "support_pos": 72303,
+        "support_neg": 72481
+      },
+      "confusion_matrix": {
+        "tp": 35219,
+        "fp": 414,
+        "fn": 37084,
+        "tn": 72067
+      }
+    },
+    {
+      "name": "knn_5",
+      "kind": "sklearn",
+      "model_path": "models/knn_5.joblib",
+      "data_path": "dataset/npy/merged/15m-50pct-5gram",
+      "label": "15m-50pct",
+      "n": 5,
+      "test_N": 144809,
+      "started_at": "2025-10-17 01:00:02 JST",
+      "finished_at": "2025-10-17 01:00:39 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.7986529844553854,
+        "f1": 0.8880567751062995,
+        "fpr": 0.0,
+        "support_pos": 72308,
+        "support_neg": 72501
+      },
+      "confusion_matrix": {
+        "tp": 57749,
+        "fp": 0,
+        "fn": 14559,
+        "tn": 72501
+      }
+    }
+  ]
+}

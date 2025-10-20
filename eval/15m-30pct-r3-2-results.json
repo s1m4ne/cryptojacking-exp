@@ -1,0 +1,148 @@
+{
+  "started_at": "2025-10-20 18:54:18 JST",
+  "finished_at": "2025-10-20 18:57:02 JST",
+  "label": "15m-30pct-r3-2",
+  "data_root": "dataset/npy/merged",
+  "results": [
+    {
+      "name": "rnn_40",
+      "kind": "keras",
+      "model_path": "models/lstm.model.keras",
+      "data_path": "dataset/npy/merged/15m-30pct-r3-2-40gram",
+      "label": "15m-30pct-r3-2",
+      "n": 40,
+      "test_N": 144634,
+      "started_at": "2025-10-20 18:54:18 JST",
+      "finished_at": "2025-10-20 18:54:31 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9991006323246578,
+        "f1": 0.9995501138558011,
+        "fpr": 0.0,
+        "support_pos": 72273,
+        "support_neg": 72361
+      },
+      "confusion_matrix": {
+        "tp": 72208,
+        "fp": 0,
+        "fn": 65,
+        "tn": 72361
+      }
+    },
+    {
+      "name": "dt_35",
+      "kind": "sklearn",
+      "model_path": "models/dt_35.joblib",
+      "data_path": "dataset/npy/merged/15m-30pct-r3-2-35gram",
+      "label": "15m-30pct-r3-2",
+      "n": 35,
+      "test_N": 144659,
+      "started_at": "2025-10-20 18:54:31 JST",
+      "finished_at": "2025-10-20 18:54:31 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9999050445103858,
+        "recall": 0.5827637732089986,
+        "f1": 0.736361808693828,
+        "fpr": 5.5263121537420044e-05,
+        "support_pos": 72278,
+        "support_neg": 72381
+      },
+      "confusion_matrix": {
+        "tp": 42121,
+        "fp": 4,
+        "fn": 30157,
+        "tn": 72377
+      }
+    },
+    {
+      "name": "svm_50",
+      "kind": "sklearn",
+      "model_path": "models/svm_50_all.joblib",
+      "data_path": "dataset/npy/merged/15m-30pct-r3-2-50gram",
+      "label": "15m-30pct-r3-2",
+      "n": 50,
+      "test_N": 144584,
+      "started_at": "2025-10-20 18:54:31 JST",
+      "finished_at": "2025-10-20 18:56:16 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "fpr": 0.0,
+        "support_pos": 72263,
+        "support_neg": 72321
+      },
+      "confusion_matrix": {
+        "tp": 72263,
+        "fp": 0,
+        "fn": 0,
+        "tn": 72321
+      }
+    },
+    {
+      "name": "mlp_10",
+      "kind": "sklearn",
+      "model_path": "models/mlp_10.joblib",
+      "data_path": "dataset/npy/merged/15m-30pct-r3-2-10gram",
+      "label": "15m-30pct-r3-2",
+      "n": 10,
+      "test_N": 144784,
+      "started_at": "2025-10-20 18:56:16 JST",
+      "finished_at": "2025-10-20 18:56:16 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9929876861057945,
+        "recall": 0.8108238938909865,
+        "f1": 0.8927075878241537,
+        "fpr": 0.005711841724038024,
+        "support_pos": 72303,
+        "support_neg": 72481
+      },
+      "confusion_matrix": {
+        "tp": 58625,
+        "fp": 414,
+        "fn": 13678,
+        "tn": 72067
+      }
+    },
+    {
+      "name": "knn_5",
+      "kind": "sklearn",
+      "model_path": "models/knn_5.joblib",
+      "data_path": "dataset/npy/merged/15m-30pct-r3-2-5gram",
+      "label": "15m-30pct-r3-2",
+      "n": 5,
+      "test_N": 144809,
+      "started_at": "2025-10-20 18:56:16 JST",
+      "finished_at": "2025-10-20 18:57:02 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9951319356087847,
+        "f1": 0.9975600288360228,
+        "fpr": 0.0,
+        "support_pos": 72308,
+        "support_neg": 72501
+      },
+      "confusion_matrix": {
+        "tp": 71956,
+        "fp": 0,
+        "fn": 352,
+        "tn": 72501
+      }
+    }
+  ]
+}

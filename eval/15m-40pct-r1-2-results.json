@@ -1,0 +1,148 @@
+{
+  "started_at": "2025-10-20 18:57:02 JST",
+  "finished_at": "2025-10-20 18:59:43 JST",
+  "label": "15m-40pct-r1-2",
+  "data_root": "dataset/npy/merged",
+  "results": [
+    {
+      "name": "rnn_40",
+      "kind": "keras",
+      "model_path": "models/lstm.model.keras",
+      "data_path": "dataset/npy/merged/15m-40pct-r1-2-40gram",
+      "label": "15m-40pct-r1-2",
+      "n": 40,
+      "test_N": 144634,
+      "started_at": "2025-10-20 18:57:02 JST",
+      "finished_at": "2025-10-20 18:57:16 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9996955986329611,
+        "f1": 0.9998477761479062,
+        "fpr": 0.0,
+        "support_pos": 72273,
+        "support_neg": 72361
+      },
+      "confusion_matrix": {
+        "tp": 72251,
+        "fp": 0,
+        "fn": 22,
+        "tn": 72361
+      }
+    },
+    {
+      "name": "dt_35",
+      "kind": "sklearn",
+      "model_path": "models/dt_35.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-r1-2-35gram",
+      "label": "15m-40pct-r1-2",
+      "n": 35,
+      "test_N": 144659,
+      "started_at": "2025-10-20 18:57:16 JST",
+      "finished_at": "2025-10-20 18:57:16 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9998997292690264,
+        "recall": 0.5518691718088492,
+        "f1": 0.7112062048676117,
+        "fpr": 5.5263121537420044e-05,
+        "support_pos": 72278,
+        "support_neg": 72381
+      },
+      "confusion_matrix": {
+        "tp": 39888,
+        "fp": 4,
+        "fn": 32390,
+        "tn": 72377
+      }
+    },
+    {
+      "name": "svm_50",
+      "kind": "sklearn",
+      "model_path": "models/svm_50_all.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-r1-2-50gram",
+      "label": "15m-40pct-r1-2",
+      "n": 50,
+      "test_N": 144584,
+      "started_at": "2025-10-20 18:57:16 JST",
+      "finished_at": "2025-10-20 18:58:59 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "fpr": 0.0,
+        "support_pos": 72263,
+        "support_neg": 72321
+      },
+      "confusion_matrix": {
+        "tp": 72263,
+        "fp": 0,
+        "fn": 0,
+        "tn": 72321
+      }
+    },
+    {
+      "name": "mlp_10",
+      "kind": "sklearn",
+      "model_path": "models/mlp_10.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-r1-2-10gram",
+      "label": "15m-40pct-r1-2",
+      "n": 10,
+      "test_N": 144784,
+      "started_at": "2025-10-20 18:58:59 JST",
+      "finished_at": "2025-10-20 18:58:59 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 0.9907768396194889,
+        "recall": 0.6150920432070592,
+        "f1": 0.7589896748869357,
+        "fpr": 0.005711841724038024,
+        "support_pos": 72303,
+        "support_neg": 72481
+      },
+      "confusion_matrix": {
+        "tp": 44473,
+        "fp": 414,
+        "fn": 27830,
+        "tn": 72067
+      }
+    },
+    {
+      "name": "knn_5",
+      "kind": "sklearn",
+      "model_path": "models/knn_5.joblib",
+      "data_path": "dataset/npy/merged/15m-40pct-r1-2-5gram",
+      "label": "15m-40pct-r1-2",
+      "n": 5,
+      "test_N": 144809,
+      "started_at": "2025-10-20 18:58:59 JST",
+      "finished_at": "2025-10-20 18:59:43 JST",
+      "binary_metrics": {
+        "positive_class": "xmrig",
+        "positive_id": 4,
+        "threshold": "argmax",
+        "precision": 1.0,
+        "recall": 0.9588427283288157,
+        "f1": 0.9789889861621011,
+        "fpr": 0.0,
+        "support_pos": 72308,
+        "support_neg": 72501
+      },
+      "confusion_matrix": {
+        "tp": 69332,
+        "fp": 0,
+        "fn": 2976,
+        "tn": 72501
+      }
+    }
+  ]
+}
