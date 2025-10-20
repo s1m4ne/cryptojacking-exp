@@ -1,6 +1,6 @@
 ---
 title: Cryptojacking Noise Experiments
-layout: page
+layout: default
 ---
 
 # タイトル

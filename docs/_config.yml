@@ -1,7 +1,6 @@
 title: Cryptojacking Noise Experiments
+description: Experiments on noise insertion and detection robustness
 theme: jekyll-theme-cayman
+url: https://s1m4ne.github.io
+baseurl: /cryptojacking-exp
 markdown: kramdown
-
-# GitHub Pages
-url: "https://s1m4ne.github.io"
-baseurl: "/cryptojacking-exp"
