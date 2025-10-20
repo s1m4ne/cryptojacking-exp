@@ -1,5 +1,5 @@
-title: Cryptojacking Noise Experiments
-description: Experiments on noise insertion and detection robustness
+title: システムコール系列に基づくクリプトジャッキング検知の回避攻撃耐性評価
+description: CSS2025 DEMO-23
 theme: jekyll-theme-cayman
 url: https://s1m4ne.github.io
 baseurl: /cryptojacking-exp
