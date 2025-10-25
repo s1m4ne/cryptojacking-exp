@@ -4,46 +4,40 @@ layout: default
 ---
 
 # ポスター資料
-こちらからご覧いただけます．
+こちらからご覧いただけます。
 
 <p align="center">
-  <a href="{{ '/assets/CSS_poster.pdf' | relative_url }}" class="btn">ポスターPDFを開く</a>
+  <a href="{{ '/assets/CSS_poster.pdf' | relative_url }}">ポスターPDFを開く</a>
 </p>
-
-<style>
-.btn{
-  display:inline-block; padding:.6em 1.0em; border-radius:6px;
-  background:#1abc9c; color:#fff; text-decoration:none; font-weight:600;
-}
-.btn:hover{ opacity:.9; }
-.fig {
-  margin: 1.2rem auto;
-  text-align: center;
-  max-width: 1100px;
-}
-.fig img {
-  max-width:100%;
-  height:auto;
-  border:1px solid #e6e6e6;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  border-radius:4px;
-}
-.caption { font-size:0.95rem; color:#444; margin-top:.4rem; }
-</style>
 
 # 補足資料
 
 ## データセット
 
-<div class="fig">
-  <div class="caption">表1. 合計サンプル数の概要（悪性 / 良性）</div>
-  <img src="{{ '/assets/dataset-total.png' | relative_url }}" alt="データセット構成図">
-</div>
+データセットの合計サンプル数（悪性/良性）と，ワークロードごとのサンプル数を表で示します．
 
-<div class="fig">
-  <div class="caption"> 表2. ワークロード別サンプル数と収集回数</div>
-  <img src="{{ '/assets/dataset.png' | relative_url }}" alt="データセット全体概要">
-</div>
+### ワークロードの説明（簡潔）
+
+- **悪性ワークロード**
+  - **XMRig**：オープンソースの Monero マイナー（仮想通貨 Monero のマイニングを行う OSS）
+
+- **良性ワークロード**
+  - **Web-Serving**：SNS サイトを想定した Web サーバで，ログイン・投稿・コメント等を実行
+  - **Data-Caching**：Twitter のようなサービスで使うキャッシュサーバの挙動を簡潔に再現
+  - **Media-Streaming**：nginx で動画配信し，長さ・品質が異なる動画リクエストを送って負荷を生成
+  - **MariaDB**：読み書きとトランザクション処理を行うオープンソース RDBMS
+
+### 表1. 合計サンプル数の概要（悪性 / 良性）
+
+<p align="center">
+  <img src="{{ '/assets/dataset-total.png' | relative_url }}" alt="合計サンプル数の概要（悪性/良性）" style="width:min(900px,100%);height:auto;display:block;margin:1.2rem auto 0;">
+</p>
+
+### 表2. ワークロード別サンプル数と収集回数
+
+<p align="center">
+  <img src="{{ '/assets/dataset.png' | relative_url }}" alt="ワークロード別サンプル数と収集回数" style="width:min(900px,100%);height:auto;display:block;margin:1.2rem auto 0;">
+</p>
 
 ## 結果詳細
 
