@@ -3,7 +3,8 @@ title: システムコール系列に基づくクリプトジャッキング検�
 layout: default
 ---
 
-# ポスター
+# ポスター資料
+こちらからご覧いただけます．
 
 <p align="center">
   <a href="{{ '/assets/CSS_poster.pdf' | relative_url }}" class="btn">ポスターPDFを開く</a>
@@ -34,17 +35,19 @@ layout: default
 
 ## データセット
 
-### 表1. 合計サンプル数の概要（悪性 / 良性）
-
 <div class="fig">
-  <img src="{{ '/assets/dataset.png' | relative_url }}" alt="データセット構成図">
+  <div class="caption">表1. 合計サンプル数の概要（悪性 / 良性）</div>
+  <img src="{{ '/assets/dataset-total.png' | relative_url }}" alt="データセット構成図">
 </div>
 
-### 表2. ワークロード別サンプル数と収集回数
-
 <div class="fig">
-  <img src="{{ '/assets/dataset-total.png' | relative_url }}" alt="データセット全体概要">
+  <div class="caption"> 表2. ワークロード別サンプル数と収集回数</div>
+  <img src="{{ '/assets/dataset.png' | relative_url }}" alt="データセット全体概要">
 </div>
+
+## 結果詳細
+
+各ノイズ挿入率（0-90%）におけるモデル別性能の詳細結果です．
 
 ### 表3. ノイズ挿入率 0% におけるモデル別性能
 
