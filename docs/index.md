@@ -16,7 +16,7 @@ layout: default
 </style>
 
 # ポスター資料
-ポスターはこちらからご覧いただけます。
+ポスターはこちらからご覧いただけます．
 
 <p align="center">
   <a href="{{ '/assets/CSS_poster.pdf' | relative_url }}">ポスターPDFを開く</a>
