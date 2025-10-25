@@ -4,3 +4,6 @@ theme: jekyll-theme-cayman
 url: https://s1m4ne.github.io
 baseurl: /cryptojacking-exp
 markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
