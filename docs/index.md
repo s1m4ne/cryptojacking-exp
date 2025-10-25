@@ -18,10 +18,10 @@ layout: default
 
 ### ワークロードの説明（簡潔）
 
-- **悪性ワークロード**
+**悪性ワークロード**
   - **XMRig**：オープンソースの Monero マイナー（仮想通貨 Monero のマイニングを行う OSS）
 
-- **良性ワークロード**
+**良性ワークロード**
   - **Web-Serving**：SNS サイトを想定した Web サーバで，ログイン・投稿・コメント等を実行
   - **Data-Caching**：Twitter のようなサービスで使うキャッシュサーバの挙動を簡潔に再現
   - **Media-Streaming**：nginx で動画配信し，長さ・品質が異なる動画リクエストを送って負荷を生成
@@ -30,7 +30,9 @@ layout: default
 ### 表1. 合計サンプル数の概要（悪性 / 良性）
 
 <p align="center">
-  <img src="{{ '/assets/dataset-total.png' | relative_url }}" alt="合計サンプル数の概要（悪性/良性）" style="width:min(900px,100%);height:auto;display:block;margin:1.2rem auto 0;">
+  <img src="{{ '/assets/dataset-total.png' | relative_url }}"
+       alt="合計サンプル数の概要（悪性/良性）"
+       style="width:70%; height:auto; display:block; margin:1.2rem auto 0;">
 </p>
 
 ### 表2. ワークロード別サンプル数と収集回数
