@@ -3,8 +3,20 @@ title: システムコール系列に基づくクリプトジャッキング検�
 layout: default
 ---
 
+<style>
+  .dataset-small {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 1.2rem auto 0;
+  }
+  @media (max-width: 768px) {
+    .dataset-small { width: 90%; }
+  }
+</style>
+
 # ポスター資料
-こちらからご覧いただけます。
+ポスターはこちらからご覧いただけます。
 
 <p align="center">
   <a href="{{ '/assets/CSS_poster.pdf' | relative_url }}">ポスターPDFを開く</a>
@@ -14,7 +26,7 @@ layout: default
 
 ## データセット
 
-データセットの合計サンプル数（悪性/良性）と，ワークロードごとのサンプル数を表で示します．
+各ワークロードごとの説明と，データセットのサンプル数についての表です．
 
 ### ワークロードの説明（簡潔）
 
@@ -32,7 +44,7 @@ layout: default
 <p align="center">
   <img src="{{ '/assets/dataset-total.png' | relative_url }}"
        alt="合計サンプル数の概要（悪性/良性）"
-       style="width:70%; height:auto; display:block; margin:1.2rem auto 0;">
+       class="dataset-small">
 </p>
 
 ### 表2. ワークロード別サンプル数と収集回数
